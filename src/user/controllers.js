@@ -43,3 +43,20 @@ exports.listUser = async (req, res) => {
     res.send({ error });
   }
 };
+
+exports.updateUser = async (req, res) => {
+  try {
+    const result = await User.findOneAndUpdate(
+      req.body.filterObj,
+      req.body.updateObj
+    );
+    if (result.modifiedCount > 0) {
+      res.status(200).send({ msg: "Successfully Updated" });
+    } else {
+      throw new Error({ msg: "Something went wrong" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.send({ error });
+  }
+};
